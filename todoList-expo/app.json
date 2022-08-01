@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "todoList-expo",
+    "slug": "todoList-expo",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#6830CF"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "icon": "./assets/ios-icon.png",
+      "bundleIdentifier":"me.j0seoyoung.todo"
+    },
+    "android": {
+      "versionCode": 2,
+      "permissions": [],
+      "icon": "./assets/android-icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-foreground.png",
+        "backgroundColor": "#6860CF"
+      },
+      "package": "com.eelectric_jo.todoListexpo"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

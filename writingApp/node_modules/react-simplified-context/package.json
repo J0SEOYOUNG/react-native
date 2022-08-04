@@ -1,0 +1,29 @@
+{
+  "name": "react-simplified-context",
+  "version": "1.0.0",
+  "description": "Easy state management with simplified Context API",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "context",
+    "state",
+    "simple"
+  ],
+  "author": "InJung Chung",
+  "license": "MIT",
+  "homepage": "https://github.com/mu29/react-simplified-context",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mu29/react-simplified-context"
+  },
+  "devDependencies": {
+    "react": "^16.5.0"
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
+}

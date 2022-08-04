@@ -1,20 +1,78 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ContextProvider } from 'react-simplified-context'
+import Navigator from './Navigator';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default class App extends React.Component {
+  state = {
+    articles: [{
+      id:1,
+      title: '첫번째 글',
+      content: '처음으로 쓴 글입니다.',
+      bookmarked: true,
+    }, {
+      id: 2,
+      title: '두번째 글',
+      content: '두번째로 쓴 글입니다.',
+    }],
+    id: 3,
+  }
+
+  componentWillUnmount() {
+    AsyncStorage.getItem('@diary:state').then((state) => { this.setState(JSON.parse(state))})
+  }
+
+  save = () =>  {
+    AsyncStorage.setItem('@diary:state', JSON.stringify(this.state))
+  }
+
+  render() {
+    return (
+      <ContextProvider 
+        articles={this.state.articles} 
+
+        create={(title, content) => {
+          const now = new Date()
+          this.setState({
+            articles: [{
+              id: this.state.id,
+              title: title,
+              content: content,
+              bookmarked: false,
+              date: `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일`,
+            }].concat(this.state.articles),
+            id: this.state.id + 1, 
+          }, this.save)
+        }}
+
+        update={(id, title, content) => {
+          const newArticles = [...this.state.articles]
+          const index = newArticles.findIndex((a) => {
+            return a.id === id
+          })
+          newArticles[index].title = title
+          newArticles[index].content = content
+          this.setState({ articles: newArticles, }, this.save)
+        }}
+
+        remove={() => {
+          console.log(index)
+          this.setState({
+            articles: this.state.articles.filter((_, i) => i !== index)
+        }, this.save)
+        }}
+
+        toggle={(id) => {
+          const newArticles = [...this.state.articles]
+          const index = newArticles.findIndex((a) => {
+            return a.id === id
+          })
+          newArticles[index].bookmarked = !newArticles[index].bookmarked
+          this.setState({ articles: newArticles, }, this.save)
+        }}
+      >
+        <Navigator />
+      </ContextProvider>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

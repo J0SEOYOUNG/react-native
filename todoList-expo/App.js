@@ -8,17 +8,17 @@ import TaskModal from './components/TaskModal';
 export default class App extends React.Component {
     state = {
         todos: [{
-            title: '8월 플래너 만들기',
+            title: '첫번째 할 일',
             done: true,
         }, {
-            title: '클래스101 앱만들기 강의 수강',
+            title: '두번째 할 일',
             done: false,
         }],
-        showModal: true,
+        showModal: false,
     }
 
-    componentWillMount() {
-        AsyncStorage.getItem('@tod:state').then((state) => {
+    componentDidMount() {
+        AsyncStorage.getItem('@todo:state').then((state) => {
             this.setState(JSON.parse(state))
         })
     }
